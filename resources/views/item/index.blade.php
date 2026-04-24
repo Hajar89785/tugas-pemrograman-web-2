@@ -16,6 +16,12 @@
                 --{{ $item->category }}
                 --{{ $item->stock }} --{{ $item->price }}
                 <a class="btn btn-warning btn-sm" href="{{ route('item.edit', $item) }}" role="button">Edit</a>
+                <form action="{{ route('item.destroy', $item) }}" method="POST" class="d-inline">
+                    @method('DELETE')
+                    @csrf
+                    <button type="submit" class="btn btn-danger btn-sm"
+                        onclick="return confirm('Anda Yakin?')">Delete</button>
+                </form>
 
             </li>
         @endforeach

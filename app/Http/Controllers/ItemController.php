@@ -15,7 +15,7 @@ class ItemController extends Controller
         
         return view('item.index', [
             'title' => 'Item', 
-            'items' => Item::all(),
+            'items' => Item::latest()->get(),
             
             ]);
     }
@@ -118,6 +118,7 @@ class ItemController extends Controller
      */
     public function destroy(Item $item)
     {
-        //
+        $item->delete($item);
+     return to_route('item.index')->withSuccess('Data berhasil dihapus');
     }
 }
