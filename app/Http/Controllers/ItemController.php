@@ -74,7 +74,11 @@ class ItemController extends Controller
      */
     public function edit(Item $item)
     {
-        //
+         return view('item.edit', [
+            'title' => 'Edit Item', 
+            'item' => $item,
+            
+            ]);
     }
 
     /**
@@ -82,7 +86,31 @@ class ItemController extends Controller
      */
     public function update(Request $request, Item $item)
     {
-        //
+               
+           $validated = $request->validate([
+        'item_name' => 'required|max:255',
+        'item_code' => 'required|max:7',
+        'category' => 'required',
+        'stock' => 'required|numeric',
+        'price' => 'required|numeric',
+        
+    ], [
+        'item_name.required' => 'Nama barang tidak boleh kosong',
+        'item_name.max' => 'Nama barang tidak boleh lebih dari :max karakter',
+        'item_code.required' => 'Kode barang tidak boleh kosong',
+        'item_code.max' => 'Kode barang tidak boleh lebih dari :max karakter',
+        'category.required' => 'Kategori barang harus di isi',
+        'stock.required' => 'Stok barang tidak boleh kosong',
+        'stock.numeric' => 'Stok barang wajib angka',
+        'price.required' => 'harga tidak boleh kosong',
+        'price.numeric' => 'harga wajib angka',
+
+
+    ]);
+
+     $item->update($validated);
+     return to_route('item.index')->withSuccess('Data berhasil diubah');
+ 
     }
 
     /**

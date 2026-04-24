@@ -14,7 +14,10 @@
         @foreach ($items as $item)
             <li class="list-group-item">{{ $loop->iteration }}. {{ $item->item_code }} --{{ $item->item_name }}
                 --{{ $item->category }}
-                --{{ $item->stock }} --{{ $item->price }}</li>
+                --{{ $item->stock }} --{{ $item->price }}
+                <a class="btn btn-warning btn-sm" href="{{ route('item.edit', $item) }}" role="button">Edit</a>
+
+            </li>
         @endforeach
 
     </ul>

@@ -18,11 +18,11 @@ class ItemFactory extends Factory
     public function definition(): array
     {
         return [
-             'item_name' => fake()->name(),
-             'item_code' => fake()->numerify('#######'),
-             'category' => fake()->name(),
-             'stock' => fake()->name(),
-             'price' => fake()->name(),
+             'item_name' => fake()->randomElement(['Kursi', 'Meja', 'Proyektor', 'Printer', 'Monitor', 'Pulpen', 'Penghapus', 'Spidol', 'Kertas A4', 'AC']),
+             'item_code' => fake()->unique()->numerify('#######'),
+             'category' => fake()->randomElement(['Elektronik', 'Alat Tulis', 'Buku' ]),
+             'stock' => fake()->numberBetween(1, 100),
+             'price' => fake()->numberBetween(10, 500)*1000,
         ];
     }
 }
