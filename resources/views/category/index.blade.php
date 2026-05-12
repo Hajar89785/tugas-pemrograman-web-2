@@ -1,0 +1,30 @@
+<x-app>
+
+    <x-slot:title>{{ $title }}</x-slot>
+
+    @session('success')
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+    @endsession
+
+    <a class="btn btn-primary mb-3" href="{{ route('category.create') }}" role="button">Create</a>
+
+    <ul class="list-group">
+        @foreach ($categorys as $category)
+            <li class="list-group-item">{{ $loop->iteration }}. {{ $category->code }} --{{ $category->name }}
+                <a class="btn btn-warning btn-sm" href="{{ route('category.edit', $category) }}" role="button">Edit</a>
+                <form action="{{ route('category.destroy', $category) }}" method="POST" class="d-inline">
+                    @method('DELETE')
+                    @csrf
+                    <button type="submit" class="btn btn-danger btn-sm"
+                        onclick="return confirm('Anda Yakin?')">Delete</button>
+                </form>
+
+            </li>
+        @endforeach
+
+    </ul>
+
+
+</x-app>
