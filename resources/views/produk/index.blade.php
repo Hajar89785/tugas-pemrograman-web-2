@@ -13,7 +13,7 @@
     <ul class="list-group">
         @foreach ($produks as $produk)
             <li class="list-group-item">{{ $loop->iteration }}. {{ $produk->name }} -- {{ $produk->category->name }}
-                --{{ $produk->code }}
+                --{{ $produk->brand }}
                 <a class="btn btn-warning btn-sm" href="{{ route('produk.edit', $produk) }}" role="button">Edit</a>
                 <form action="{{ route('produk.destroy', $produk) }}" method="POST" class="d-inline">
                     @method('DELETE')

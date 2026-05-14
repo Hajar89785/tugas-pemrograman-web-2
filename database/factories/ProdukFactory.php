@@ -20,10 +20,10 @@ class ProdukFactory extends Factory
     {
         return [
             'category_id'=>Category::inRandomOrder()->first()->id,
-            'name'=>fake()->randomElement(['Komputer HP', 'Printer Canon Pixma', 'SSD Samsung Evo 500GB', 'Keyboard Samsung 24 Inch', 'Mouse Logitech Wireless']),
-            'code'=>fake()->unique()->bothify('PRD-####'),
-            'stock'=>fake()->numberBetween(1, 100),
-            'price'=>fake()->numberBetween(10000, 500000),
+            'name' => fake()->randomElement(['Komputer HP', 'Printer Canon Pixma', 'SSD Samsung', 'Monitor LG', 'Keyboard Logitech', 'Kertas HVS A4 80gr', 'Pulpen Pilot G2', 'Papan Tulis Whiteboard', 'Kursi Kerja Ergonomis', 'Meja Kantor Jati', 'Lemari Arsip Besi']),
+            'brand' => fake()->randomElement(['HP', 'Canon', 'Samsung', 'LG', 'Logitech', 'Sinar Dunia', 'Pilot', 'Kenko', 'IKEA', 'Olympic']),
+            'unit' => fake()->randomElement(['Unit', 'Pcs', 'Set', 'Pack']),
+            'specification'=>fake()->sentence(10),
         ];
     }
 }

@@ -15,9 +15,9 @@ return new class extends Migration
             $table->id();
             $table->foreignId('category_id')->constrained()->cascadeOnDelete();
             $table->string('name');
-            $table->string('code');
-            $table->integer('stock');
-            $table->decimal('price', 15, 2);
+            $table->string('brand');
+            $table->integer('unit');
+            $table->text('specification');
             $table->timestamps();
         });
     }

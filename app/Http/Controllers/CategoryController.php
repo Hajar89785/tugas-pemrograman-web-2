@@ -12,9 +12,16 @@ class CategoryController extends Controller
      */
     public function index()
     {
+
+    $categorys = Category::latest();
+    $keyword = request('keyword');
+    if($keyword){
+        $categorys->where('name', 'like', '%' . $keyword . '%');
+    }
+    
         return view('category.index', [
             'title' => 'Category', 
-            'categorys' => Category::latest()->get(),
+            'categorys' => $categorys->paginate(2)->withQueryString(),
             
             ]);
     }
