@@ -77,7 +77,11 @@ class CategoryController extends Controller
      */
     public function edit(Category $category)
     {
-        //
+         return view('category.edit', [
+            'title' => 'Edit Category',
+            'items' => Item::latest()->get(), 
+            'category' => $category, 
+        ]);
     }
 
     /**
@@ -85,7 +89,25 @@ class CategoryController extends Controller
      */
     public function update(Request $request, Category $category)
     {
-        //
+        $validated = $request->validate([
+        'name' => 'required|max:255',
+        'code' => 'required|unique:categories|max:10',
+        'description' => 'required',
+        
+    ], [
+        'name.required' => 'Nama kategori tidak boleh kosong',
+        'name.max' => 'Nama kategori tidak boleh lebih dari :max karakter',
+        'code.required' => 'Kode barang tidak boleh kosong',
+        'code.unique' => 'Kode kategori sudah terdaftar, gunakan kode lain',
+        'code.max' => 'Kode kategori tidak boleh lebih dari :max karakter',
+        'description.required' => 'Deskripsi kategori harus diisi',
+    
+    ]);
+
+     $category->update($validated);
+     return to_route('category.index')->withSuccess('Data berhasil diubah');
+ 
+    
     }
 
     /**
