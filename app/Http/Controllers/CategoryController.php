@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\Item;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller
@@ -31,7 +32,10 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        //
+        return view('category.create', [
+            'title' => 'Create Category',
+            'items' => Item::latest()->get(),  
+        ]);
     }
 
     /**
@@ -39,7 +43,25 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+        'name' => 'required|max:255',
+        'code' => 'required|unique:categories|max:10',
+        'description' => 'required',
+        
+    ], [
+        'name.required' => 'Nama kategori tidak boleh kosong',
+        'name.max' => 'Nama kategori tidak boleh lebih dari :max karakter',
+        'code.required' => 'Kode barang tidak boleh kosong',
+        'code.unique' => 'Kode kategori sudah terdaftar, gunakan kode lain',
+        'code.max' => 'Kode kategori tidak boleh lebih dari :max karakter',
+        'description.required' => 'Deskripsi kategori harus diisi',
+    
+    ]);
+
+     Category::create($validated);
+     return to_route('category.index')->withSuccess('Data berhasil ditambahkan');
+ 
+    
     }
 
     /**
