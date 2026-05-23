@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 
-#[Fillable(['category_id', 'name', 'code', 'stock', 'price'])]
+#[Fillable(['category_id', 'name', 'brand', 'unit', 'specification'])]
 
 class Produk extends Model
 {

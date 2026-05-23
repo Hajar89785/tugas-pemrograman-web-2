@@ -37,7 +37,11 @@ class ProdukController extends Controller
      */
     public function create()
     {
-        //
+        return view('produk.create', [
+            'title' => 'Create Produk',
+            'categorys' => Category::latest()->get(),  
+
+        ]);
     }
 
     /**
@@ -45,7 +49,29 @@ class ProdukController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+        'name'          => 'required|max:255',
+        'brand'         => 'required|max:255',
+        'category_id'   => 'required|exists:categories,id',
+        'unit'          => 'required|numeric',
+        'specification' => 'required',
+        
+    ], [
+        'name.required'          => 'Nama produk tidak boleh kosong',
+        'name.max'               => 'Nama produk tidak boleh lebih dari 255 karakter',
+        'brand.required'         => 'Brand tidak boleh kosong',
+        'brand.max'              => 'Brand tidak boleh lebih dari 255 karakter',
+        'category_id.required'   => 'Silakan pilih kategori terlebih dahulu',
+        'category_id.exists'     => 'Kategori yang dipilih tidak valid',
+        'unit.required'          => 'Jumlah unit tidak boleh kosong',
+        'unit.numeric'           => 'Jumlah unit harus berupa angka',
+        'specification.required' => 'Spesifikasi produk harus diisi',    
+    ]);
+
+     Produk::create($validated);
+     return to_route('produk.index')->withSuccess('Data berhasil ditambahkan');
+ 
+    
     }
 
     /**
