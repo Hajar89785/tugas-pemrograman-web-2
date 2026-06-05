@@ -52,6 +52,18 @@
                 <div class="invalid-feedback">{{ $message }}</div>
             @enderror
         </div>
+        <div class="mb-3">
+            <label for="status" class="form-label">Status</label>
+            <select class="form-select @error('status') is-invalid @enderror" id="status" name="status">
+                <option value=""> Choose Status </option>
+                <option value="Available" @selected(old('status', $produk->status) == 'Available')>Available</option>
+                <option value="Out of Stock" @selected(old('status', $produk->status) == 'Out of Stock')>Out of Stock</option>
+            </select>
+            @error('status')
+                <div class="invalid-feedback">{{ $message }}</div>
+            @enderror
+        </div>
+
 
 
 

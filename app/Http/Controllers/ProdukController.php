@@ -129,8 +129,16 @@ class ProdukController extends Controller
     ]);
 
 
-     $produk->update($validated);
-     return to_route('produk.index')->withSuccess('Data berhasil diubah');
+     try {
+        DB::beginTransaction();
+        Produk::create($validated);
+        DB::commit();
+        return to_route('produk.index')->withSuccess('Data berhasil diubah');
+    } catch (\Exception $e) {
+        DB::rollBack();
+        return to_route('produk.edit', $produk)->withError('Data gagal diubah');
+
+    }
  
     
     }
