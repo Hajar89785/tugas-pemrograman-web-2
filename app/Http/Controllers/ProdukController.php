@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Models\Produk;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+
 
 class ProdukController extends Controller
 {
@@ -47,6 +49,7 @@ class ProdukController extends Controller
         'category_id'   => 'required|exists:categories,id',
         'unit'          => 'required|numeric',
         'specification' => 'required',
+        'status'        => 'required',
         
     ], [
         'name.required'          => 'Nama produk tidak boleh kosong',
@@ -57,12 +60,20 @@ class ProdukController extends Controller
         'category_id.exists'     => 'Kategori yang dipilih tidak valid',
         'unit.required'          => 'Jumlah unit tidak boleh kosong',
         'unit.numeric'           => 'Jumlah unit harus berupa angka',
-        'specification.required' => 'Spesifikasi produk harus diisi',    
+        'specification.required' => 'Spesifikasi produk harus diisi',
+        'status.required'        => 'Status produk harus dipilih',    
     ]);
 
-     Produk::create($validated);
-     return to_route('produk.index')->withSuccess('Data berhasil ditambahkan');
- 
+     try {
+        DB::beginTransaction();
+        Produk::create($validated);
+        DB::commit();
+        return to_route('produk.index')->withSuccess('Data berhasil ditambahkan');
+    } catch (\Exception $e) {
+        DB::rollBack();
+        return to_route('produk.create')->withError('Data gagal ditambahkan');
+
+    }
     
     }
 
@@ -101,6 +112,7 @@ class ProdukController extends Controller
         'category_id'   => 'required|exists:categories,id',
         'unit'          => 'required|numeric',
         'specification' => 'required',
+        'status'        => 'required',
         
     ], [
         'name.required'          => 'Nama produk tidak boleh kosong',
@@ -111,8 +123,11 @@ class ProdukController extends Controller
         'category_id.exists'     => 'Kategori yang dipilih tidak valid',
         'unit.required'          => 'Jumlah unit tidak boleh kosong',
         'unit.numeric'           => 'Jumlah unit harus berupa angka',
-        'specification.required' => 'Spesifikasi produk harus diisi',    
+        'specification.required' => 'Spesifikasi produk harus diisi',
+        'status.required'        => 'Status produk harus dipilih',    
+
     ]);
+
 
      $produk->update($validated);
      return to_route('produk.index')->withSuccess('Data berhasil diubah');
