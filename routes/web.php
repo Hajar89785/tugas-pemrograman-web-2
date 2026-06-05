@@ -16,6 +16,7 @@ Route::delete('/item/{item}', [ItemController::class, 'destroy'])->name('item.de
 
 //soft deletes
 Route::get('/produk/trash', [ProdukController::class, 'trash'])->name('produk.trash');
+Route::put('/produk/{produk}/restore', [ProdukController::class, 'restore'])->name('produk.restore')->withTrashed();
 
 Route::resource('category', CategoryController::class);
 Route::resource('produk', ProdukController::class);

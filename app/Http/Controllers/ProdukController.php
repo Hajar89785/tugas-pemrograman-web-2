@@ -148,10 +148,10 @@ class ProdukController extends Controller
      */
     public function destroy(Produk $produk)
     {
-        {
+        
         $produk->delete($produk);
         return to_route('produk.index')->withSuccess('Data berhasil dihapus');
-    }
+    
     }
 
     //soft deletes
@@ -164,4 +164,13 @@ class ProdukController extends Controller
             'categorys' => Category::all(),          
             ]);
     }
+
+    public function restore(Produk $produk)
+    {
+        
+        $produk->restore();
+        return to_route('produk.trash')->withSuccess('Data berhasil dikembalikan');
+    
+    }
+    
 }
