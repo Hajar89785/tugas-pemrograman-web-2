@@ -14,6 +14,8 @@ Route::get('/item/{item}/edit', [ItemController::class, 'edit'])->name('item.edi
 Route::put('/item/{item}', [ItemController::class, 'update'])->name('item.update');
 Route::delete('/item/{item}', [ItemController::class, 'destroy'])->name('item.destroy');
 
+//soft deletes
+Route::get('/produk/trash', [ProdukController::class, 'trash'])->name('produk.trash');
 
 Route::resource('category', CategoryController::class);
 Route::resource('produk', ProdukController::class);

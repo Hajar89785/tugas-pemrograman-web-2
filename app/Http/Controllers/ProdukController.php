@@ -153,4 +153,15 @@ class ProdukController extends Controller
         return to_route('produk.index')->withSuccess('Data berhasil dihapus');
     }
     }
+
+    //soft deletes
+     public function trash()
+    {
+
+        return view('produk.trash', [
+            'title' => 'Trash Produk',
+            'produks'   => Produk::onlyTrashed()->with('category')->get(),
+            'categorys' => Category::all(),          
+            ]);
+    }
 }

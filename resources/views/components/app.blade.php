@@ -23,6 +23,7 @@
                     <a class="nav-link active" href="{{ route('item.index') }}">Item</a>
                     <a class="nav-link active" href="{{ route('category.index') }}">Category</a>
                     <a class="nav-link active" href="{{ route('produk.index') }}">Produk</a>
+                    <a class="nav-link active" href="{{ route('produk.trash') }}">Trash</a>
                 </div>
             </div>
         </div>
