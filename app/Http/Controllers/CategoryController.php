@@ -14,17 +14,17 @@ class CategoryController extends Controller
     public function index()
     {
 
-    $categorys = Category::latest();
-    $keyword = request('keyword');
-    if($keyword){
-        $categorys->where('name', 'like', '%' . $keyword . '%');
-    }
-    
+        $categorys = Category::latest();
+        $keyword = request('keyword');
+        if ($keyword) {
+            $categorys->where('name', 'like', '%'.$keyword.'%');
+        }
+
         return view('category.index', [
-            'title' => 'Category', 
+            'title' => 'Category',
             'categorys' => $categorys->paginate(2)->withQueryString(),
-            
-            ]);
+
+        ]);
     }
 
     /**
@@ -34,7 +34,7 @@ class CategoryController extends Controller
     {
         return view('category.create', [
             'title' => 'Create Category',
-            'items' => Item::latest()->get(),  
+            'items' => Item::latest()->get(),
         ]);
     }
 
@@ -44,24 +44,24 @@ class CategoryController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-        'name' => 'required|max:255',
-        'code' => 'required|unique:categories|max:10',
-        'description' => 'required',
-        
-    ], [
-        'name.required' => 'Nama kategori tidak boleh kosong',
-        'name.max' => 'Nama kategori tidak boleh lebih dari :max karakter',
-        'code.required' => 'Kode barang tidak boleh kosong',
-        'code.unique' => 'Kode kategori sudah terdaftar, gunakan kode lain',
-        'code.max' => 'Kode kategori tidak boleh lebih dari :max karakter',
-        'description.required' => 'Deskripsi kategori harus diisi',
-    
-    ]);
+            'name' => 'required|max:255',
+            'code' => 'required|unique:categories|max:10',
+            'description' => 'required',
 
-     Category::create($validated);
-     return to_route('category.index')->withSuccess('Data berhasil ditambahkan');
- 
-    
+        ], [
+            'name.required' => 'Nama kategori tidak boleh kosong',
+            'name.max' => 'Nama kategori tidak boleh lebih dari :max karakter',
+            'code.required' => 'Kode barang tidak boleh kosong',
+            'code.unique' => 'Kode kategori sudah terdaftar, gunakan kode lain',
+            'code.max' => 'Kode kategori tidak boleh lebih dari :max karakter',
+            'description.required' => 'Deskripsi kategori harus diisi',
+
+        ]);
+
+        Category::create($validated);
+
+        return to_route('category.index')->withSuccess('Data berhasil ditambahkan');
+
     }
 
     /**
@@ -70,8 +70,8 @@ class CategoryController extends Controller
     public function show(Category $category)
     {
         return view('category.show', [
-            'title' => 'Detail Category ' . $category->name,
-            'category' => $category,  
+            'title' => 'Detail Category '.$category->name,
+            'category' => $category,
         ]);
     }
 
@@ -80,10 +80,10 @@ class CategoryController extends Controller
      */
     public function edit(Category $category)
     {
-         return view('category.edit', [
+        return view('category.edit', [
             'title' => 'Edit Category',
-            'items' => Item::latest()->get(), 
-            'category' => $category, 
+            'items' => Item::latest()->get(),
+            'category' => $category,
         ]);
     }
 
@@ -93,24 +93,23 @@ class CategoryController extends Controller
     public function update(Request $request, Category $category)
     {
         $validated = $request->validate([
-        'name' => 'required|max:255',
-        'code' => 'required|unique:categories|max:10',
-        'description' => 'required',
-        
-    ], [
-        'name.required' => 'Nama kategori tidak boleh kosong',
-        'name.max' => 'Nama kategori tidak boleh lebih dari :max karakter',
-        'code.required' => 'Kode barang tidak boleh kosong',
-        'code.unique' => 'Kode kategori sudah terdaftar, gunakan kode lain',
-        'code.max' => 'Kode kategori tidak boleh lebih dari :max karakter',
-        'description.required' => 'Deskripsi kategori harus diisi',
-    
-    ]);
+            'name' => 'required|max:255',
+            'code' => 'required|unique:categories,code'.$category->id,
+            'description' => 'required',
 
-     $category->update($validated);
-     return to_route('category.index')->withSuccess('Data berhasil diubah');
- 
-    
+        ], [
+            'name.required' => 'Nama kategori tidak boleh kosong',
+            'name.max' => 'Nama kategori tidak boleh lebih dari :max karakter',
+            'code.required' => 'Kode barang tidak boleh kosong',
+            'code.unique' => 'Kode kategori sudah terdaftar, gunakan kode lain',
+            'description.required' => 'Deskripsi kategori harus diisi',
+
+        ]);
+
+        $category->update($validated);
+
+        return to_route('category.index')->withSuccess('Data berhasil diubah');
+
     }
 
     /**
@@ -119,6 +118,7 @@ class CategoryController extends Controller
     public function destroy(Category $category)
     {
         $category->delete($category);
+
         return to_route('category.index')->withSuccess('Data berhasil dihapus');
     }
 }

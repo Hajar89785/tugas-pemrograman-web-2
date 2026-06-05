@@ -28,7 +28,7 @@
     <ul class="list-group">
         @foreach ($categorys as $category)
             <li class="list-group-item">{{ $categorys->firstItem() + $loop->index }}. {{ $category->code }}
-                --{{ $category->name }}
+                --{{ $category->name }} --{{ $category->description }}
                 <a class="btn btn-info btn-sm" href="{{ route('category.show', $category) }}" role="button">Detail</a>
                 <a class="btn btn-warning btn-sm" href="{{ route('category.edit', $category) }}" role="button">Edit</a>
                 <form action="{{ route('category.destroy', $category) }}" method="POST" class="d-inline">

@@ -19,7 +19,7 @@ class ItemFactory extends Factory
     {
         return [
              'item_name' => fake()->randomElement(['Kursi', 'Meja', 'Proyektor', 'Printer', 'Monitor', 'Pulpen', 'Penghapus', 'Spidol', 'Kertas A4', 'AC']),
-             'item_code' => fake()->unique()->numerify('#######'),
+             'item_code' => fake()->numerify('#######'),
              'category' => fake()->randomElement(['Elektronik', 'Alat Tulis', 'Buku' ]),
              'stock' => fake()->numberBetween(1, 100),
              'price' => fake()->numberBetween(10, 500)*1000,

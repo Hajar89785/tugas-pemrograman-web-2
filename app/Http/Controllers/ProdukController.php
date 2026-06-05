@@ -14,15 +14,7 @@ class ProdukController extends Controller
     public function index()
     {
 
-    $produks = Produk::latest();
-    $keyword = request('keyword');
-    if($keyword){
-        $produks->where('name', 'like', '%' . $keyword . '%');
-    }
-    $category_id = request('category_id');
-    if($category_id){
-        $produks->where('category_id', $category_id );
-    }
+    $produks = Produk::latest()->filter(request(['keyword', 'category_id']));
 
         return view('produk.index', [
             'title' => 'Produk', 

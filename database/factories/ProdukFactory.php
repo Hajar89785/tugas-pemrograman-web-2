@@ -22,7 +22,7 @@ class ProdukFactory extends Factory
             'category_id'=>Category::inRandomOrder()->first()->id,
             'name' => fake()->randomElement(['Komputer HP', 'Printer Canon Pixma', 'SSD Samsung', 'Monitor LG', 'Keyboard Logitech', 'Kertas HVS A4 80gr', 'Pulpen Pilot G2', 'Papan Tulis Whiteboard', 'Kursi Kerja Ergonomis', 'Meja Kantor Jati', 'Lemari Arsip Besi']),
             'brand' => fake()->randomElement(['HP', 'Canon', 'Samsung', 'LG', 'Logitech', 'Sinar Dunia', 'Pilot', 'Kenko', 'IKEA', 'Olympic']),
-            'unit' => fake()->randomElement(['Unit', 'Pcs', 'Set', 'Pack']),
+            'unit' => fake()->numberBetween(1, 100),
             'specification'=>fake()->sentence(10),
         ];
     }

@@ -14,8 +14,6 @@ Route::get('/item/{item}/edit', [ItemController::class, 'edit'])->name('item.edi
 Route::put('/item/{item}', [ItemController::class, 'update'])->name('item.update');
 Route::delete('/item/{item}', [ItemController::class, 'destroy'])->name('item.destroy');
 
-Route::get('/category/create', [CategoryController::class, 'create'])->name('category.create');
-
 
 Route::resource('category', CategoryController::class);
 Route::resource('produk', ProdukController::class);

@@ -39,7 +39,7 @@
         @foreach ($produks as $produk)
             <li class="list-group-item">{{ $produks->firstItem() + $loop->index }}. {{ $produk->name }} --
                 {{ $produk->category->name }}
-                --{{ $produk->brand }}
+                --{{ $produk->brand }} --{{ $produk->unit }} --{{ $produk->specification }}
                 <a class="btn btn-info btn-sm" href="{{ route('produk.show', $produk) }}" role="button">Detail</a>
                 <a class="btn btn-warning btn-sm" href="{{ route('produk.edit', $produk) }}" role="button">Edit</a>
                 <form action="{{ route('produk.destroy', $produk) }}" method="POST" class="d-inline">
