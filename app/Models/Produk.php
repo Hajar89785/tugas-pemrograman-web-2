@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 
-#[Fillable(['category_id', 'name', 'brand', 'unit', 'specification'])]
+#[Fillable(['category_id', 'name', 'brand', 'unit', 'specification', 'status'])]
 
 class Produk extends Model
 {
